@@ -1479,6 +1479,7 @@ hr.fancy::before {
     font-size   : var(--text-md);
     line-height : var(--vspace-1_25);
     color       : var(--color-text-dark);
+    z-index: 10;
 }
 
 .pull-quote {
@@ -3329,33 +3330,38 @@ To make the box shadow appear in front of the canvas, you can add a pseudo-eleme
     box-sizing: border-box;
 }
 
-.column.lg-6.md-12 {
-    width: 100%;
-    /* Additional styles as needed */
+
+.canvas-border-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    border: 15px solid  #141516; /* Outer border */
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 2;
 }
 
 .canvas-wrapper {
     position: relative;
     width: 100%;
-    max-width: 600px; /* Match the canvas width */
     height: auto;
-    margin: 0 auto; /* Center the wrapper if desired */
     overflow: hidden;
+    border-radius: 50%;
 }
 
 canvas#neuro {
     display: block;
+    max-width: 600px;
+    height: 600px;
     width: 100%;
-    height: auto;
     opacity: 0.95;
     pointer-events: none;
-    overflow-x: hidden;
-    border-radius: 100%;
+    border-radius: 50%;
     position: relative;
     z-index: 0;
 }
 
-/* If using a pseudo-element overlay */
+/* Overlay pseudo-element */
 .canvas-wrapper::before {
     content: '';
     position: absolute;
@@ -3363,25 +3369,11 @@ canvas#neuro {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 100%;
-    box-shadow: inset 0 0 15px 10px #141516;
+    border-radius: 50%;
+    box-shadow: inset 0 0 25px 20px #141516;
     pointer-events: none;
     z-index: 1;
 }
-
-/* If using an overlay div */
-.canvas-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-    box-shadow: inset 0 0 25px 10px #141516;
-    pointer-events: none;
-    z-index: 1;
-}
-
 
 
 /* --------------------------------------------------------------------
@@ -3391,26 +3383,31 @@ canvas#neuro {
     --gutter    : 0;
     width       : 100%;
     align-items : center;
+    z-index: 10;
 }
 
 .about-info__pic {
     object-fit     : cover;
     margin         : 0;
     vertical-align : bottom;
+    z-index: 10;
 }
 
 .about-info__text {
     padding     : var(--vspace-3_5) 10vw var(--vspace-2) 0;
     margin-left : -4rem;
+    z-index: 10;
 }
 
 .about-info__text .text-pretitle {
     margin-bottom : var(--vspace-1);
+    z-index: 10;
 }
 
 .about-info__text .btn {
     margin-top    : var(--vspace-1);
     margin-bottom : 0;
+    z-index: 10;
 }
 
 /* --------------------------------------------------------------------
