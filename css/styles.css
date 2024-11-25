@@ -1474,12 +1474,13 @@ hr.fancy::before {
  * -------------------------------------------------------------------- */
 .lead,
 .attention-getter {
+    position: relative;
     font-family : var(--font-1);
     font-weight : 300;
     font-size   : var(--text-md);
     line-height : var(--vspace-1_25);
     color       : var(--color-text-dark);
-    z-index: 10;
+    z-index: 9999 !important;
 }
 
 .pull-quote {
@@ -3338,7 +3339,7 @@ To make the box shadow appear in front of the canvas, you can add a pseudo-eleme
     border: 15px solid  #141516; /* Outer border */
     overflow: hidden;
     box-sizing: border-box;
-    z-index: 2;
+    z-index: 2 !important;
 }
 
 .canvas-wrapper {
@@ -3358,7 +3359,7 @@ canvas#neuro {
     pointer-events: none;
     border-radius: 50%;
     position: relative;
-    z-index: 0;
+    z-index: 0 !important;
 }
 
 /* Overlay pseudo-element */
@@ -3372,7 +3373,7 @@ canvas#neuro {
     border-radius: 50%;
     box-shadow: inset 0 0 25px 20px #141516;
     pointer-events: none;
-    z-index: 1;
+    z-index: 1 !important;
 }
 
 
