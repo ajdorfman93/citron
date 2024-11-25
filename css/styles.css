@@ -1480,7 +1480,7 @@ hr.fancy::before {
     font-size   : var(--text-md);
     line-height : var(--vspace-1_25);
     color       : var(--color-text-dark);
-    z-index: 9999 !important;
+    z-index: 999 !important;
 }
 
 .pull-quote {
