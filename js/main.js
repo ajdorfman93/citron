@@ -4,8 +4,6 @@
 
     html.className = html.className.replace(/\bno-js\b/g, '') + ' js ';
 
-
-
    /* Animations
     * -------------------------------------------------- */
     const tl = anime.timeline( {
