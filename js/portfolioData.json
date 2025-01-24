@@ -24,8 +24,8 @@
           "thumbnailImage": "https://iili.io/2sY5A1n.jpg",
           "altText": "https://iili.io/2AxonnI.png",
           "category": "Photography",
-          "projectTitle": "Midwest Visuals",
-          "projectLink": "https://wildroots.space/",
+          "projectTitle": "The Click",
+          "projectLink": "https://theclick.space/",
           "modalImage": "https://iili.io/2sY5Rgs.jpg",
           "modalDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
           "modalCategories": [
@@ -33,7 +33,7 @@
             "Website"
           ],
           "modalId": "modal-02",
-          "modalTitle": "Midwest Visuals"
+          "modalTitle": "The Click"
         }
       }
     ]

@@ -7,6 +7,9 @@ fetch('js/portfolioData.json') // Adjust if your JSON file is at a different URL
     const records = data.records;
     createPortfolioItems(records);
     createModals(records);
+
+    // Now that items and modals are created, set up event delegation for the lightbox or other events.
+    initLightbox();
   })
   .catch(error => {
     console.error('Error fetching portfolio data:', error);
@@ -29,6 +32,7 @@ function createPortfolioItems(records) {
     const li = document.createElement('li');
     li.className = 'folio-list__item column';
     li.setAttribute('data-animate-el', '');
+    
     // Main link (opens the modal)
     const itemLink = document.createElement('a');
     itemLink.className = 'folio-list__item-link';
@@ -40,7 +44,9 @@ function createPortfolioItems(records) {
     const img = document.createElement('img');
     img.src = fields.thumbnailImage;
     // If you need srcset, you can update accordingly
-    img.srcset = `${fields.thumbnailImage} 1x, ${fields.modalImage} 2x`,+ 'alt';
+    img.srcset = `${fields.thumbnailImage} 1x, ${fields.modalImage} 2x`;
+    // Add alt text if needed
+    img.alt = fields.altText || '';
     itemPic.appendChild(img);
 
     // Text container
@@ -103,7 +109,6 @@ function createModals(records) {
     const fields = record.fields;
 
     // Remove "L" from modalCategories
-    // If "modalCategories" is undefined, handle gracefully:
     let cleanedCategories = [];
     if (Array.isArray(fields.modalCategories)) {
       cleanedCategories = fields.modalCategories.filter(cat => cat !== 'L');
@@ -117,11 +122,15 @@ function createModals(records) {
     // Inner modal content
     const modalPopup = document.createElement('div');
     modalPopup.className = 'modal-popup';
-
-    // Modal image
+    // 1) Wrap the modal image in an <a> so it becomes a clickable link
+    const modalLink = document.createElement('a');
+    modalLink.href = fields.projectLink;              // link to your external project
+    modalLink.target = '_blank';
+    // 2) Create the <img> and append to the <a>
     const modalImg = document.createElement('img');
     modalImg.src = fields.modalImage;
     modalImg.alt = fields.altText || '';
+    modalLink.appendChild(modalImg);
 
     // Description wrapper
     const descDiv = document.createElement('div');
@@ -144,11 +153,6 @@ function createModals(records) {
       ul.appendChild(li);
     });
 
-    // Project link in the modal (text = modalTitle)
-    const projectLink = document.createElement('a');
-    projectLink.href = fields.projectLink;
-    projectLink.className = 'modal-popup__details';
-    projectLink.textContent = fields.modalTitle;
 
     // Combine description
     descDiv.appendChild(h5);
@@ -156,9 +160,8 @@ function createModals(records) {
     descDiv.appendChild(ul);
 
     // Put all inside .modal-popup
-    modalPopup.appendChild(modalImg);
+    modalPopup.appendChild(modalLink);
     modalPopup.appendChild(descDiv);
-    modalPopup.appendChild(projectLink);
 
     // Put .modal-popup into outer <div>
     modalDiv.appendChild(modalPopup);
@@ -167,3 +170,47 @@ function createModals(records) {
     modalContainer.appendChild(modalDiv);
   });
 }
+
+/**
+ * Initialize Lightbox with event delegation
+ * Instead of attaching individual click handlers to each .folio-list__item-link,
+ * we listen once on `document` (or a parent container).
+ */
+function initLightbox() {
+    document.addEventListener('click', function (event) {
+      const link = event.target.closest('.folio-list__item-link');
+      if (!link) return;
+  
+      event.preventDefault();
+  
+      const modalSelector = link.getAttribute('href');
+      if (!modalSelector) return;
+  
+      // This is the original modal node in the DOM that was created by createModals().
+      const originalModal = document.querySelector(modalSelector);
+      if (!originalModal) return;
+  
+      // Instead of passing the DOM node, pass a string copy of its HTML.
+      // This ensures you can open the same “modal content” multiple times.
+      const modalHTML = originalModal.innerHTML;
+  
+      const instance = basicLightbox.create(`
+        <div class="modal-popup">
+          ${modalHTML}
+        </div>
+      `, {
+        onShow: (instance) => {
+          // handle Esc key close
+          document.addEventListener("keydown", function escHandler(e) {
+            if (e.key === "Escape" || e.keyCode === 27) {
+              instance.close();
+              document.removeEventListener("keydown", escHandler);
+            }
+          });
+        }
+      });
+  
+      instance.show();
+    });
+  }
+  

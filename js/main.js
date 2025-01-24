@@ -4,9 +4,9 @@
 
     html.className = html.className.replace(/\bno-js\b/g, '') + ' js ';
 
-   /* Animations
-    * -------------------------------------------------- */
-    const tl = anime.timeline( {
+    /* Animations
+     * -------------------------------------------------- */
+    const tl = anime.timeline({
         easing: 'easeInOutCubic',
         duration: 800,
         autoplay: false
@@ -59,9 +59,8 @@
     }, '-=800');
 
 
-
-   /* Preloader
-    * -------------------------------------------------- */
+    /* Preloader
+     * -------------------------------------------------- */
     const ssPreloader = function() {
 
         const preloader = document.querySelector('#preloader');
@@ -77,17 +76,11 @@
 
             tl.play();
         });
-
-        // force page scroll position to top at page refresh
-        // window.addEventListener('beforeunload' , function () {
-        //     // window.scrollTo(0, 0);
-        // });
-
-    }; // end ssPreloader
+    };
 
 
-   /* Mobile Menu
-    * ---------------------------------------------------- */ 
+    /* Mobile Menu
+     * ---------------------------------------------------- */ 
     const ssMobileMenu = function() {
 
         const toggleButton = document.querySelector('.mobile-menu-toggle');
@@ -102,9 +95,10 @@
             siteBody.classList.toggle('menu-is-open');
         });
 
+        // If your .main-nav a elements are static (present at load), this is fine.
+        // If they were generated dynamically, you would use delegation instead.
         mainNavWrap.querySelectorAll('.main-nav a').forEach(function(link) {
             link.addEventListener("click", function(event) {
-
                 // at 800px and below
                 if (window.matchMedia('(max-width: 800px)').matches) {
                     toggleButton.classList.toggle('is-clicked');
@@ -114,7 +108,6 @@
         });
 
         window.addEventListener('resize', function() {
-
             // above 800px
             if (window.matchMedia('(min-width: 801px)').matches) {
                 if (siteBody.classList.contains('menu-is-open')) siteBody.classList.remove('menu-is-open');
@@ -122,11 +115,11 @@
             }
         });
 
-    }; // end ssMobileMenu
+    };
 
 
-   /* Highlight active menu link on pagescroll
-    * ------------------------------------------------------ */
+    /* Highlight active menu link on page scroll
+     * ------------------------------------------------------ */
     const ssScrollSpy = function() {
 
         const sections = document.querySelectorAll(".target-section");
@@ -139,19 +132,12 @@
             // Get current scroll position
             let scrollY = window.pageYOffset;
         
-            // Loop through sections to get height(including padding and border), 
-            // top and ID values for each
+            // Loop through sections to get height, top and ID
             sections.forEach(function(current) {
                 const sectionHeight = current.offsetHeight;
                 const sectionTop = current.offsetTop - 50;
                 const sectionId = current.getAttribute("id");
             
-               /* If our current scroll position enters the space where current section 
-                * on screen is, add .current class to parent element(li) of the thecorresponding 
-                * navigation link, else remove it. To know which link is active, we use 
-                * sectionId variable we are getting while looping through sections as 
-                * an selector
-                */
                 if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
                     document.querySelector(".main-nav a[href*=" + sectionId + "]").parentNode.classList.add("current");
                 } else {
@@ -159,12 +145,11 @@
                 }
             });
         }
+    };
 
-    }; // end ssScrollSpy
 
-
-   /* Animate elements if in viewport
-    * ------------------------------------------------------ */
+    /* Animate elements if in viewport
+     * ------------------------------------------------------ */
     const ssViewAnimate = function() {
 
         const blocks = document.querySelectorAll("[data-animate-block]");
@@ -199,106 +184,65 @@
                 }
             });
         }
+    };
 
-    }; // end ssViewAnimate
 
-
-   /* Swiper
-    * ------------------------------------------------------ */ 
+    /* Swiper
+     * ------------------------------------------------------ */ 
     const ssSwiper = function() {
-
         const mySwiper = new Swiper('.swiper-container', {
-
             slidesPerView: 1,
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
             },
             breakpoints: {
-                // when window width is > 400px
                 401: {
                     slidesPerView: 1,
                     spaceBetween: 20
                 },
-                // when window width is > 800px
                 801: {
                     slidesPerView: 2,
                     spaceBetween: 32
                 },
-                // when window width is > 1200px
                 1201: {
                     slidesPerView: 2,
                     spaceBetween: 80
                 }
             }
-         });
-
-    }; // end ssSwiper
-
-
-   /* Lightbox
-    * ------------------------------------------------------ */
-    const ssLightbox = function() {
-
-        const folioLinks = document.querySelectorAll('.folio-list__item-link');
-        const modals = [];
-
-        folioLinks.forEach(function(link) {
-            let modalbox = link.getAttribute('href');
-            let instance = basicLightbox.create(
-                document.querySelector(modalbox),
-                {
-                    onShow: function(instance) {
-                        //detect Escape key press
-                        document.addEventListener("keydown", function(event) {
-                            event = event || window.event;
-                            if (event.keyCode === 27) {
-                                instance.close();
-                            }
-                        });
-                    }
-                }
-            )
-            modals.push(instance);
         });
-
-        folioLinks.forEach(function(link, index) {
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                modals[index].show();
-            });
-        });
-
-    };  // end ssLightbox
+    };
 
 
-   /* Alert boxes
-    * ------------------------------------------------------ */
+    /* Lightbox
+     * ------------------------------------------------------ */
+    // Removed the old forEach code from here; 
+    // (We moved a dynamic approach into `initLightbox()` in portfolio.js)
+
+    /* Alert boxes (event delegation)
+     * ------------------------------------------------------ */
     const ssAlertBoxes = function() {
+        // If alert boxes might appear dynamically, do event delegation:
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('.alert-box__close')) {
+                // locate closest .alert-box
+                const box = e.target.closest('.alert-box');
+                if (!box) return;
 
-        const boxes = document.querySelectorAll('.alert-box');
-  
-        boxes.forEach(function(box){
+                e.stopPropagation();
+                box.classList.add("hideit");
 
-            box.addEventListener('click', function(event) {
-                if (event.target.matches(".alert-box__close")) {
-                    event.stopPropagation();
-                    event.target.parentElement.classList.add("hideit");
-
-                    setTimeout(function(){
-                        box.style.display = "none";
-                    }, 500)
-                }    
-            });
-
-        })
-
-    }; // end ssAlertBoxes
+                setTimeout(function(){
+                    box.style.display = "none";
+                }, 500);
+            }
+        });
+    };
 
 
-   /* Smoothscroll
-    * ------------------------------------------------------ */
-    const ssMoveTo = function(){
+    /* Smoothscroll
+     * ------------------------------------------------------ */
+    const ssMoveTo = function() {
 
         const easeFunctions = {
             easeInQuad: function (t, b, c, d) {
@@ -321,7 +265,7 @@
                 t -= 2;
                 return c/2*(t*t*t + 2) + b;
             }
-        }
+        };
 
         const triggers = document.querySelectorAll('.smoothscroll');
         
@@ -335,23 +279,21 @@
         triggers.forEach(function(trigger) {
             moveTo.registerTrigger(trigger);
         });
+    };
 
-    }; // end ssMoveTo
 
-
-   /* Initialize
-    * ------------------------------------------------------ */
+    /* Initialize
+     * ------------------------------------------------------ */
     (function ssInit() {
-
         ssPreloader();
         ssMobileMenu();
         ssScrollSpy();
         ssViewAnimate();
         ssSwiper();
-        ssLightbox();
+        // We do not call the old ssLightbox here because 
+        // it's now handled inside portfolio.js -> initLightbox().
         ssAlertBoxes();
         ssMoveTo();
-
     })();
 
 })(document.documentElement);
