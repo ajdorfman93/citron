@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Portfolio Modal Demo</title>
+  <style>
+    /* -------------------------
+       Minimal CSS for demo
+       ------------------------- */
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    /* Portfolio grid */
+    .folio-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .folio-list__item {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      position: relative;
+    }
+
+    .folio-list__item-pic img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .folio-list__item-cat {
+      font-weight: bold;
+    }
+
+    .folio-list__proj-link {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    /* Modal styling */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: none;                /* hidden by default */
+      justify-content: center;
+      align-items: center;
+      background: rgba(0,0,0,0.7);
+      z-index: 9999;
+    }
+
+    .modal.open {
+      display: flex;               /* show when .open is added */
+    }
+
+    .modal-popup {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 5px;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+    }
+
+    .modal-popup__close {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal-popup__desc h5 {
+      margin-top: 0;
+    }
+
+    .modal-popup__cat {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem 0;
+      display: flex;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Portfolio</h1>
+
+<!-- Container where the portfolio items will go -->
+<ul class="folio-list" id="portfolioList"></ul>
+
+<!-- Container for the generated modals -->
+<div id="modalContainer"></div>
+
+<script>
+fetch('js/portfolioData.json')
+  .then(response => response.json())
+  .then(data => {
+    const records = data.records;
+    createPortfolioItems(records);
+    createModals(records);
+    enableModalOpen();
+  })
+  .catch(err => console.error(err));
+/* 
+  createPortfolioItems():
+    Builds <li> elements inside #portfolioList for each record
+*/
+function createPortfolioItems(records) {
+  const portfolioList = document.getElementById('portfolioList');
+
+  records.forEach(record => {
+    const numericId = record.id;
+    const fields = record.fields;
+
+    // Create the <li>
+    const li = document.createElement('li');
+    li.className = 'folio-list__item';
+    li.dataset.itemId = numericId; // store numeric ID if needed
+
+    // Main link that references the modal
+    const itemLink = document.createElement('a');
+    itemLink.className = 'folio-list__item-link';
+    // e.g. "#modal-01"
+    itemLink.href = `#${fields.modalId}`;
+
+    // Image
+    const itemPic = document.createElement('div');
+    itemPic.className = 'folio-list__item-pic';
+    const img = document.createElement('img');
+    img.src = fields.thumbnailImage;
+    img.alt = fields.altText || '';
+    itemPic.appendChild(img);
+
+    // Text
+    const itemText = document.createElement('div');
+    itemText.className = 'folio-list__item-text';
+
+    const catDiv = document.createElement('div');
+    catDiv.className = 'folio-list__item-cat';
+    catDiv.textContent = fields.category;
+
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'folio-list__item-title';
+    titleDiv.textContent = fields.projectTitle;
+
+    itemText.appendChild(catDiv);
+    itemText.appendChild(titleDiv);
+
+    // Put image + text into the anchor
+    itemLink.appendChild(itemPic);
+    itemLink.appendChild(itemText);
+
+    // External link (SVG arrow)
+    const projLink = document.createElement('a');
+    projLink.className = 'folio-list__proj-link';
+    projLink.href = fields.projectLink;
+    projLink.title = 'project link';
+    projLink.innerHTML = `
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645
+                 L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355
+                 L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536
+                 C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464
+                 L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5
+                 C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355
+                 C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+              fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+      </svg>
+    `;
+
+    // Assemble <li>
+    li.appendChild(itemLink);
+    li.appendChild(projLink);
+
+    // Add to the UL
+    portfolioList.appendChild(li);
+  });
+}
+
+/* 
+  createModals():
+    Builds hidden modals for each record and places them inside #modalContainer.
+    Also removes "L" from modalCategories, if present.
+*/
+function createModals(records) {
+  const modalContainer = document.getElementById('modalContainer');
+
+  records.forEach(record => {
+    const fields = record.fields;
+
+    // Filter out "L"
+    const cleanedCategories = Array.isArray(fields.modalCategories)
+      ? fields.modalCategories.filter(cat => cat !== 'L')
+      : [];
+
+    // Outer wrapper
+    const modalDiv = document.createElement('div');
+    modalDiv.id = fields.modalId;   // e.g. "modal-01"
+    modalDiv.classList.add('modal'); // will be toggled open/closed
+
+    // Inner popup
+    const modalPopup = document.createElement('div');
+    modalPopup.className = 'modal-popup';
+
+    // Close button (X)
+    const closeButton = document.createElement('button');
+    closeButton.className = 'modal-popup__close';
+    closeButton.textContent = 'X';
+    closeButton.addEventListener('click', () => {
+      modalDiv.classList.remove('open');
+    });
+
+    // Modal image
+    const modalImg = document.createElement('img');
+    modalImg.src = fields.modalImage;
+    modalImg.alt = fields.altText || '';
+
+    // Description container
+    const descDiv = document.createElement('div');
+    descDiv.className = 'modal-popup__desc';
+
+    const h5 = document.createElement('h5');
+    h5.textContent = fields.modalTitle;
+
+    const p = document.createElement('p');
+    p.textContent = fields.modalDescription;
+
+    // Category list in modal
+    const ul = document.createElement('ul');
+    ul.className = 'modal-popup__cat';
+    cleanedCategories.forEach(cat => {
+      const li = document.createElement('li');
+      li.textContent = cat;
+      ul.appendChild(li);
+    });
+
+    // Modal "project link" text = modalTitle
+    const projectLink = document.createElement('a');
+    projectLink.href = fields.projectLink;
+    projectLink.className = 'modal-popup__details';
+    projectLink.textContent = fields.modalTitle;
+
+    // Build up the DOM
+    descDiv.appendChild(h5);
+    descDiv.appendChild(p);
+    descDiv.appendChild(ul);
+
+    modalPopup.appendChild(closeButton);
+    modalPopup.appendChild(modalImg);
+    modalPopup.appendChild(descDiv);
+    modalPopup.appendChild(projectLink);
+
+    modalDiv.appendChild(modalPopup);
+    modalContainer.appendChild(modalDiv);
+  });
+}
+
+/* 
+  enableModalOpen():
+    Listens for clicks on the portfolio item link 
+    and toggles the corresponding modal open.
+*/
+function enableModalOpen() {
+  document.addEventListener('click', function(event) {
+    // Check if the click was on a .folio-list__item-link anchor
+    const link = event.target.closest('a.folio-list__item-link');
+    if (!link) return;  // do nothing if not clicked on the link
+
+    event.preventDefault();  // stop normal anchor "jump"
+
+    // href="#modal-01" => get the "modal-01" part
+    const hash = link.getAttribute('href');
+    if (hash && hash.startsWith('#')) {
+      const modalId = hash.substring(1);
+      const modalEl = document.getElementById(modalId);
+      if (modalEl) {
+        // Show the modal
+        modalEl.classList.add('open');
+      }
+    }
+  });
+}
+
+// ---------------------
+//   Initialization
+// ---------------------
+(function init() {
+  const records = sampleData.records;
+  createPortfolioItems(records);
+  createModals(records);
+  enableModalOpen();
+})();
+</script>
+
+</body>
+</html>
