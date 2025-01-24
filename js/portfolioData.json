@@ -3,12 +3,12 @@
       {
         "id": 1,
         "fields": {
-          "thumbnailImage": "https://iili.io/2AxonnI.png",
+          "thumbnailImage": "https://iili.io/2sY5xzN.jpg",
           "altText": "https://iili.io/2AxonnI.png",
           "category": "Photography",
           "projectTitle": "Midwest Visuals",
           "projectLink": "https://wildroots.space/",
-          "modalImage": "https://iili.io/2AxonnI.png",
+          "modalImage": "https://iili.io/2sY5uqX.jpg",
           "modalDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
           "modalCategories": [
             "L",
@@ -21,90 +21,18 @@
       {
         "id": 2,
         "fields": {
-          "thumbnailImage": "https://iili.io/2AxonnI.png",
+          "thumbnailImage": "https://iili.io/2sY5A1n.jpg",
           "altText": "https://iili.io/2AxonnI.png",
           "category": "Photography",
           "projectTitle": "Midwest Visuals",
           "projectLink": "https://wildroots.space/",
-          "modalImage": "https://iili.io/2AxonnI.png",
+          "modalImage": "https://iili.io/2sY5Rgs.jpg",
           "modalDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
           "modalCategories": [
             "L",
             "Website"
           ],
           "modalId": "modal-02",
-          "modalTitle": "Midwest Visuals"
-        }
-      },
-      {
-        "id": 3,
-        "fields": {
-          "thumbnailImage": "https://iili.io/2AxonnI.png",
-          "altText": "https://iili.io/2AxonnI.png",
-          "category": "Photography",
-          "projectTitle": "Midwest Visuals",
-          "projectLink": "https://wildroots.space/",
-          "modalImage": "https://iili.io/2AxonnI.png",
-          "modalDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "modalCategories": [
-            "L",
-            "Website"
-          ],
-          "modalId": "modal-03",
-          "modalTitle": "Midwest Visuals"
-        }
-      },
-      {
-        "id": 4,
-        "fields": {
-          "thumbnailImage": "https://iili.io/2AxonnI.png",
-          "altText": "https://iili.io/2AxonnI.png",
-          "category": "Photography",
-          "projectTitle": "Midwest Visuals",
-          "projectLink": "https://wildroots.space/",
-          "modalImage": "https://iili.io/2AxonnI.png",
-          "modalDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "modalCategories": [
-            "L",
-            "Website"
-          ],
-          "modalId": "modal-04",
-          "modalTitle": "Midwest Visuals"
-        }
-      },
-      {
-        "id": 5,
-        "fields": {
-          "thumbnailImage": "https://iili.io/2AxonnI.png",
-          "altText": "https://iili.io/2AxonnI.png",
-          "category": "Photography",
-          "projectTitle": "Midwest Visuals",
-          "projectLink": "https://wildroots.space/",
-          "modalImage": "https://iili.io/2AxonnI.png",
-          "modalDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "modalCategories": [
-            "L",
-            "Website"
-          ],
-          "modalId": "modal-05",
-          "modalTitle": "Midwest Visuals"
-        }
-      },
-      {
-        "id": 6,
-        "fields": {
-          "thumbnailImage": "https://iili.io/2AxonnI.png",
-          "altText": "https://iili.io/2AxonnI.png",
-          "category": "Photography",
-          "projectTitle": "Midwest Visuals",
-          "projectLink": "https://wildroots.space/",
-          "modalImage": "https://iili.io/2AxonnI.png",
-          "modalDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "modalCategories": [
-            "L",
-            "Website"
-          ],
-          "modalId": "modal-06",
           "modalTitle": "Midwest Visuals"
         }
       }
