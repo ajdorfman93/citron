@@ -3324,8 +3324,6 @@ img.u-pull-left {
 }
 
 
-To make the box shadow appear in front of the canvas, you can add a pseudo-element to create the shadow and position it on top of the canvas. Here's how you can modify your CSS:
-
 /* Reset and base styles */
 *, *::before, *::after {
     box-sizing: border-box;

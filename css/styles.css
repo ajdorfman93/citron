@@ -3324,7 +3324,6 @@ img.u-pull-left {
 }
 
 
-To make the box shadow appear in front of the canvas, you can add a pseudo-element to create the shadow and position it on top of the canvas. Here's how you can modify your CSS:
 
 /* Reset and base styles */
 *, *::before, *::after {
@@ -3530,6 +3529,50 @@ canvas#neuro {
         padding     : var(--vspace-1) 0 0 0;
         margin-left : 0;
     }
+    
+.canvas-border-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    border: 15px solid  #141516; /* Outer border */
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 2 !important;
+}
+
+.canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+canvas#neuro {
+    display: block;
+    max-width: 300px;
+    height: 300px;
+    width: 100%;
+    opacity: 0.95;
+    pointer-events: none;
+    border-radius: 50%;
+    position: relative;
+    z-index: 0 !important;
+}
+
+/* Overlay pseudo-element */
+.canvas-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: inset 0 0 25px 20px #141516;
+    pointer-events: none;
+    z-index: 1 !important;
+}
 }
 
 @media screen and (max-width: 1000px) {
