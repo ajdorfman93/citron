@@ -114,7 +114,7 @@
 
                 <div class="row about-info wide" data-animate-block>
                     <div class="column lg-6 md-12">
-                        <div class="canvas-border-wrapper">
+                        <div class="canvas-border-wrapper" data-animate-el>
                             <div class="canvas-wrapper">
                                 <canvas id="neuro"></canvas>
                             </div>
@@ -123,7 +123,7 @@
             
                     <div class="column lg-6 md-12">
                         <div class="about-info__text" >
-                            <h2 class="text-pretitle with-line btn" data-animate-el>
+                            <h2 class="text-pretitle with-line" data-animate-el>
                                 About
                             </h2>
                             <p class="attention-getter" data-animate-el>
@@ -481,7 +481,7 @@
         vec2 res = vec2(0.);
         float scale = 8.;
 
-        for (int j = 0; j < 15; j++) {
+        for (int j = 0; j < 100; j++) {
             uv = rotate(uv, 1.);
             sine_acc = rotate(sine_acc, 1.);
             vec2 layer = uv * scale + float(j) + sine_acc - t;
