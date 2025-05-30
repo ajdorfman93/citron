@@ -5,11 +5,11 @@
         "fields": {
           "thumbnailImage": "https://iili.io/2sY5xzN.jpg",
           "altText": "https://iili.io/2AxonnI.png",
-          "category": "Photography",
+          "category": "Website",
           "projectTitle": "Midwest Visuals",
           "projectLink": "https://wildroots.space/",
           "modalImage": "https://iili.io/2sY5uqX.jpg",
-          "modalDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "modalDescription": "This website offers expert filmography that captures the essence of your special moments and professional photography showcasing the beauty of the Midwest.  In their creative studio, they craft  video productions tailored to tell your unique story.",
           "modalCategories": [
             "L",
             "Website"
@@ -21,19 +21,37 @@
       {
         "id": 2,
         "fields": {
-          "thumbnailImage": "https://iili.io/2sY5A1n.jpg",
-          "altText": "https://iili.io/2AxonnI.png",
-          "category": "Photography",
-          "projectTitle": "The Click",
-          "projectLink": "https://theclick.space/",
-          "modalImage": "https://iili.io/2sY5Rgs.jpg",
-          "modalDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "thumbnailImage": "/images/portfolio/gallery/g-zeusauction.jpg",
+          "altText": "g-zeusauction",
+          "category": "Application",
+          "projectTitle": "Zeus Auction Auto Bidding",
+          "projectLink": "",
+          "modalImage": "/images/portfolio/zeusauction2x.jpg",
+          "modalDescription": "This application automates bidding on ZeusAuction.com based on preset criteria and supports scheduled execution.",
           "modalCategories": [
             "L",
-            "Website"
+            "Application"
           ],
           "modalId": "modal-02",
-          "modalTitle": "The Click"
+          "modalTitle": "Zeus Auction Auto Bidding"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "thumbnailImage": "/images/portfolio/ocdispens@0.5x.jpg",
+          "altText": "g-ocdispens",
+          "category": "Mobile App",
+          "projectTitle": "OC Dispensary",
+          "projectLink": "https://ocdispensary.github.io/oc-dispensary/home.html",
+          "modalImage": "images/portfolio/ocdispens2x.jpg", 
+          "modalDescription": "This cross-platform desktop and mobile app (Android and iOS) provides cannabis dispensary services to clients throughout New York State.",
+          "modalCategories": [
+            "L",
+            "Application"
+          ],
+          "modalId": "modal-03",
+          "modalTitle": "Zeus Auction Auto Bidding"
         }
       }
     ]

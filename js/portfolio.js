@@ -44,7 +44,7 @@ function createPortfolioItems(records) {
     const img = document.createElement('img');
     img.src = fields.thumbnailImage;
     // If you need srcset, you can update accordingly
-    img.srcset = `${fields.thumbnailImage} 1x, ${fields.modalImage} 2x`;
+    img.srcset = `${fields.thumbnailImage}`;
     // Add alt text if needed
     img.alt = fields.altText || '';
     itemPic.appendChild(img);
