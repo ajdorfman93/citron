@@ -793,6 +793,7 @@ button.swiper-pagination-bullet {
     background-size     : 1.8rem 1.8rem;
     background-repeat   : no-repeat;
     cursor              : pointer;
+    z-index             : 1001;
 }
 
 .basicLightbox--visible {

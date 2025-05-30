@@ -44,7 +44,7 @@
           "category": "Mobile App",
           "projectTitle": "OC Dispensary",
           "projectLink": "https://ocdispensary.github.io/oc-dispensary/home.html",
-          "modalImage": "images/portfolio/ocdispens2x.jpg", 
+          "modalImage": "/images/portfolio/gallery/g-ocdispens.jpg", 
           "modalDescription": "This cross-platform desktop and mobile app (Android and iOS) provides cannabis dispensary services to clients throughout New York State.",
           "modalCategories": [
             "L",
