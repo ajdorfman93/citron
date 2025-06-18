@@ -264,8 +264,8 @@
 						const linkColor = getInstanceColor( instanceIndex );
 
 						// store the minimum lifetime of the closest particles in the w component of colors
-						const l1 = max( 0.0, min( closestLife1, life ) ).pow( 0.8 ); // pow is here to apply a slight curve to the opacity
-						const l2 = max( 0.0, min( closestLife2, life ) ).pow( 0.8 );
+						const l1 = max( 0.0, min( closestLife1, life ) ).pow( 0.4 ); // pow is here to apply a slight curve to the opacity
+						const l2 = max( 0.0, min( closestLife2, life ) ).pow( 0.4 );
 
 						Loop( 4, ( { i } ) => {
 
