@@ -75,7 +75,7 @@
                                 canvas.style.height = '100%';
                                 canvas.style.pointerEvents = 'none';
                                 canvas.style.zIndex = '106';
-								canvas.style.opacity = '0.6';
+								canvas.style.opacity = '0.3';
 
                                 document.body.prepend( canvas );
 
