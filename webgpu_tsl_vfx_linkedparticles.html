@@ -25,12 +25,10 @@
 			import { atan, cos, float, max, min, mix, PI, PI2, sin, vec2, vec3, color, Fn, hash, hue, If, instanceIndex, Loop, mx_fractal_noise_float, mx_fractal_noise_vec3, pass, pcurve, storage, deltaTime, time, uv, uniform, step } from 'three/tsl';
 			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 
-			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-			import { Timer } from 'three/addons/misc/Timer.js';
-			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
-			import WebGPU from 'three/addons/capabilities/WebGPU.js';
+                       import { Timer } from 'three/addons/misc/Timer.js';
+                       import WebGPU from 'three/addons/capabilities/WebGPU.js';
 
-			let camera, scene, renderer, postProcessing, controls, timer, light;
+                       let camera, scene, renderer, postProcessing, timer, light;
 
 			let updateParticles, spawnParticles; // TSL compute nodes
 			let getInstanceColor; // TSL function
@@ -60,8 +58,10 @@
 			const turbAmplitude = uniform( 0.5 );
 			const turbOctaves = uniform( 2 );
 			const turbLacunarity = uniform( 2.0 );
-			const turbGain = uniform( 0.5 );
-			const turbFriction = uniform( 0.01 );
+                       const turbGain = uniform( 0.5 );
+                       const turbFriction = uniform( 0.01 );
+
+                       const autoRotateSpeed = 0.2;
 
 			init();
 
@@ -349,46 +349,12 @@
 
 				postProcessing.outputNode = scenePassColor.add( bloomPass );
 
-				// controls
-
-				controls = new OrbitControls( camera, renderer.domElement );
-				controls.enableDamping = true;
-				controls.autoRotate = true;
-				controls.maxDistance = 75;
-				window.addEventListener( 'resize', onWindowResize );
+                                window.addEventListener( 'resize', onWindowResize );
 
 				// pointer handling
 
 				window.addEventListener( 'pointermove', onPointerMove );
 
-				// GUI
-
-				const gui = new GUI();
-
-				gui.add( controls, 'autoRotate' ).name( 'Auto Rotate' );
-				gui.add( controls, 'autoRotateSpeed', - 10.0, 10.0, 0.01 ).name( 'Auto Rotate Speed' );
-
-				const partFolder = gui.addFolder( 'Particles' );
-				partFolder.add( timeScale, 'value', 0.0, 4.0, 0.01 ).name( 'timeScale' );
-				partFolder.add( nbToSpawn, 'value', 1, 100, 1 ).name( 'Spawn rate' );
-				partFolder.add( particleSize, 'value', 0.01, 3.0, 0.01 ).name( 'Size' );
-				partFolder.add( particleLifetime, 'value', 0.01, 2.0, 0.01 ).name( 'Lifetime' );
-				partFolder.add( linksWidth, 'value', 0.001, 0.1, 0.001 ).name( 'Links width' );
-				partFolder.add( colorVariance, 'value', 0.0, 10.0, 0.01 ).name( 'Color variance' );
-				partFolder.add( colorRotationSpeed, 'value', 0.0, 5.0, 0.01 ).name( 'Color rotation speed' );
-
-				const turbFolder = gui.addFolder( 'Turbulence' );
-				turbFolder.add( turbFriction, 'value', 0.0, 0.3, 0.01 ).name( 'Friction' );
-				turbFolder.add( turbFrequency, 'value', 0.0, 1.0, 0.01 ).name( 'Frequency' );
-				turbFolder.add( turbAmplitude, 'value', 0.0, 10.0, 0.01 ).name( 'Amplitude' );
-				turbFolder.add( turbOctaves, 'value', 1, 9, 1 ).name( 'Octaves' );
-				turbFolder.add( turbLacunarity, 'value', 1.0, 5.0, 0.01 ).name( 'Lacunarity' );
-				turbFolder.add( turbGain, 'value', 0.0, 1.0, 0.01 ).name( 'Gain' );
-
-				const bloomFolder = gui.addFolder( 'bloom' );
-				bloomFolder.add( bloomPass.threshold, 'value', 0, 2.0, 0.01 ).name( 'Threshold' );
-				bloomFolder.add( bloomPass.strength, 'value', 0, 10, 0.01 ).name( 'Strength' );
-				bloomFolder.add( bloomPass.radius, 'value', 0, 1, 0.01 ).name( 'Radius' );
 
 			}
 
@@ -437,16 +403,19 @@
 				// rotating colors
 				colorOffset.value += timer.getDelta() * colorRotationSpeed.value * timeScale.value;
 
-				const elapsedTime = timer.getElapsed();
-				light.position.set(
-					Math.sin( elapsedTime * 0.5 ) * 30,
-					Math.cos( elapsedTime * 0.3 ) * 30,
-					Math.sin( elapsedTime * 0.2 ) * 30,
-				);
 
-				controls.update();
+                                const elapsedTime = timer.getElapsed();
+                                light.position.set(
+                                        Math.sin( elapsedTime * 0.5 ) * 30,
+                                        Math.cos( elapsedTime * 0.3 ) * 30,
+                                        Math.sin( elapsedTime * 0.2 ) * 30,
+                                );
 
-				postProcessing.render();
+                                camera.position.x = Math.sin( elapsedTime * autoRotateSpeed ) * 10;
+                                camera.position.z = Math.cos( elapsedTime * autoRotateSpeed ) * 10;
+                                camera.lookAt( 0, 0, 0 );
+
+                                postProcessing.render();
 
 			}
 
