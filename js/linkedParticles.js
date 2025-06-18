@@ -5,7 +5,7 @@
                        import { Timer } from 'three/addons/misc/Timer.js';
                        import WebGPU from 'three/addons/capabilities/WebGPU.js';
 
-                       let camera, scene, renderer, postProcessing, timer, light;
+                       let camera, scene, renderer, postProcessing, timer;
 
 			let updateParticles, spawnParticles; // TSL compute nodes
 			let getInstanceColor; // TSL function
@@ -309,19 +309,7 @@
 
 
 				// background , an inverted icosahedron
-				const backgroundGeom = new THREE.IcosahedronGeometry( 100, 5 ).applyMatrix4( new THREE.Matrix4().makeScale( - 1, 1, 1 ) );
-				const backgroundMaterial = new THREE.MeshStandardNodeMaterial();
-				backgroundMaterial.roughness = 0.4;
-				backgroundMaterial.metalness = 0.9;
-				backgroundMaterial.flatShading = true;
-				backgroundMaterial.colorNode = color( 0x0 );
-
-				const backgroundMesh = new THREE.Mesh( backgroundGeom, backgroundMaterial );
-				scene.add( backgroundMesh );
-
-				// light for the background
-				light = new THREE.PointLight( 0xffffff, 2000 );
-				scene.add( light );
+                               // solid background color only
 
 				// post processing
 
@@ -389,12 +377,7 @@
 				previousSpawnPosition.value.copy( spawnPosition.value );
 				spawnPosition.value.lerp( scenePointer, 0.1 );
 
-                                const elapsedTime = timer.getElapsed();
-                                light.position.set(
-                                        Math.sin( elapsedTime * 0.5 ) * 30,
-                                        Math.cos( elapsedTime * 0.3 ) * 30,
-                                        Math.sin( elapsedTime * 0.2 ) * 30,
-                                );
+                               const elapsedTime = timer.getElapsed();
 
                                 camera.position.x = Math.sin( elapsedTime * autoRotateSpeed ) * 10;
                                 camera.position.z = Math.cos( elapsedTime * autoRotateSpeed ) * 10;
