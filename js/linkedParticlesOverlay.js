@@ -1,3 +1,4 @@
+
 			import * as THREE from 'three';
 			import { atan, cos, float, max, min, mix, PI, PI2, sin, vec2, vec3, color, Fn, hash, hue, If, instanceIndex, Loop, mx_fractal_noise_float, mx_fractal_noise_vec3, pass, pcurve, storage, deltaTime, time, uv, uniform, step } from 'three/tsl';
 			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
@@ -60,7 +61,6 @@
 				// renderer
 
                                 renderer = new THREE.WebGPURenderer( { antialias: true, alpha: true } );
-                                // make the background fully transparent
                                 renderer.setClearColor( 0x000000, 0 );
                                 renderer.setPixelRatio( window.devicePixelRatio );
                                 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -75,8 +75,8 @@
                                 canvas.style.width = '100%';
                                 canvas.style.height = '100%';
                                 canvas.style.pointerEvents = 'none';
-                                // draw over all page content
-                                canvas.style.zIndex = '1000';
+                                canvas.style.zIndex = '9999';
+                                canvas.style.background = 'transparent';
 
                                 document.body.prepend( canvas );
 
