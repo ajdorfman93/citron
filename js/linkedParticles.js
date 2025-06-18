@@ -82,7 +82,7 @@
                                // return a constant white color for all particles
                                getInstanceColor = /*#__PURE__*/ Fn( () => {
 
-                                       return color( 0xffffff );
+                                       return color( 0xeabe7c );
 
                                } );
 
@@ -309,7 +309,23 @@
 
 
 				// background , an inverted icosahedron
+<<<<<<< Updated upstream
                                // solid background color only
+=======
+				const backgroundGeom = new THREE.IcosahedronGeometry( 100, 5 ).applyMatrix4( new THREE.Matrix4().makeScale( - 1, 1, 1 ) );
+				const backgroundMaterial = new THREE.MeshStandardNodeMaterial();
+				backgroundMaterial.roughness = 0.4;
+				backgroundMaterial.metalness = 0.9;
+				backgroundMaterial.flatShading = true;
+				backgroundMaterial.colorNode = color( 0x141516 );
+
+				const backgroundMesh = new THREE.Mesh( backgroundGeom, backgroundMaterial );
+				scene.add( backgroundMesh );
+
+				// light for the background
+				light = new THREE.PointLight( 0xffffff, 12000 );
+				scene.add( light );
+>>>>>>> Stashed changes
 
 				// post processing
 

@@ -242,6 +242,7 @@ html {
 
 body {
     margin : 0;
+    cursor: none;
 }
 
 main {
@@ -2007,7 +2008,7 @@ input[type="button"] {
     text-decoration         : none;
     text-align              : center;
     white-space             : nowrap;
-    cursor                  : pointer;
+    cursor                  : none;
     transition              : all .3s;
     background-color        : var(--color-btn);
     border                  : 1px solid var(--color-btn);
@@ -2212,7 +2213,7 @@ td:last-child {
 .pgn .inactive:focus,
 .pgn .inactive:hover {
     opacity : 0.4;
-    cursor  : default;
+    cursor  : none;
 }
 
 .pgn__prev,
@@ -2274,7 +2275,7 @@ td:last-child {
 .pgn__prev.inactive,
 .pgn__next.inactive {
     opacity : 0.4;
-    cursor  : default;
+    cursor  : none;
 }
 
 .pgn__prev.inactive:focus,
@@ -2315,7 +2316,7 @@ td:last-child {
     display  : block;
     right    : 1.6rem;
     top      : 1.6rem;
-    cursor   : pointer;
+    cursor   : none;
     width    : 12px;
     height   : 12px;
 }

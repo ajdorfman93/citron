@@ -107,7 +107,7 @@ pre[class*="language-"] {
 }
 
 .token.entity {
-    cursor : help;
+    cursor          : none;
 }
 
 .token.inserted {
@@ -293,7 +293,7 @@ pre[class*="language-"] {
     height          : var(--swiper-navigation-size);
     margin-top      : calc(-1 * var(--swiper-navigation-size) / 2);
     z-index         : 10;
-    cursor          : pointer;
+    cursor          : none;
     display         : flex;
     align-items     : center;
     justify-content : center;
@@ -303,7 +303,7 @@ pre[class*="language-"] {
 .swiper-button-prev.swiper-button-disabled,
 .swiper-button-next.swiper-button-disabled {
     opacity        : 0.35;
-    cursor         : auto;
+    cursor          : none;
     pointer-events : none;
 }
 
@@ -438,7 +438,7 @@ button.swiper-pagination-bullet {
 }
 
 .swiper-pagination-clickable .swiper-pagination-bullet {
-    cursor : pointer;
+    cursor          : none;
 }
 
 .swiper-pagination-bullet-active {
@@ -574,7 +574,7 @@ button.swiper-pagination-bullet {
 }
 
 .swiper-scrollbar-cursor-drag {
-    cursor : move;
+    cursor          : none;
 }
 
 .swiper-scrollbar-lock {
@@ -599,7 +599,7 @@ button.swiper-pagination-bullet {
 }
 
 .swiper-slide-zoomed {
-    cursor : move;
+    cursor          : none;
 }
 
 /* Preloader */
@@ -792,7 +792,7 @@ button.swiper-pagination-bullet {
     background-position : center;
     background-size     : 1.8rem 1.8rem;
     background-repeat   : no-repeat;
-    cursor              : pointer;
+    cursor          : none;
     z-index             : 1001;
 }
 
