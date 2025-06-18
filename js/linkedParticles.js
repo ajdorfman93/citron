@@ -59,13 +59,24 @@
 
 				// renderer
 
-				renderer = new THREE.WebGPURenderer( { antialias: true } );
-				renderer.setClearColor( 0x14171a );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.setAnimationLoop( animate );
-				renderer.toneMapping = THREE.ACESFilmicToneMapping;
-				document.body.appendChild( renderer.domElement );
+                                renderer = new THREE.WebGPURenderer( { antialias: true } );
+                                renderer.setClearColor( 0x14171a );
+                                renderer.setPixelRatio( window.devicePixelRatio );
+                                renderer.setSize( window.innerWidth, window.innerHeight );
+                                renderer.setAnimationLoop( animate );
+                                renderer.toneMapping = THREE.ACESFilmicToneMapping;
+
+                                // ensure canvas covers the viewport and stays fixed
+                                const canvas = renderer.domElement;
+                                canvas.style.position = 'fixed';
+                                canvas.style.top = '0';
+                                canvas.style.left = '0';
+                                canvas.style.width = '100%';
+                                canvas.style.height = '100%';
+                                canvas.style.pointerEvents = 'none';
+                                canvas.style.zIndex = '-1';
+
+                                document.body.prepend( canvas );
 
                                // TSL function
                                // return a constant white color for all particles
