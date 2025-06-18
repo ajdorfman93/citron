@@ -35,7 +35,7 @@
                        const turbGain = uniform( 0.5 );
                        const turbFriction = uniform( 0.01 );
 
-                       const autoRotateSpeed = 0.2;
+                       const autoRotateSpeed = 0;
 
 			init();
 
@@ -320,7 +320,7 @@
 				scene.add( backgroundMesh );
 
 				// light for the background
-				light = new THREE.PointLight( 0xffffff, 3000 );
+				light = new THREE.PointLight( 0xffffff, 2000 );
 				scene.add( light );
 
 				// post processing
