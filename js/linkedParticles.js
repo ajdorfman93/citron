@@ -60,7 +60,7 @@
 				// renderer
 
                                 renderer = new THREE.WebGPURenderer( { antialias: true } );
-                                renderer.setClearColor( 0x14171a );
+                                renderer.setClearColor( 0x141516 );
                                 renderer.setPixelRatio( window.devicePixelRatio );
                                 renderer.setSize( window.innerWidth, window.innerHeight );
                                 renderer.setAnimationLoop( animate );
