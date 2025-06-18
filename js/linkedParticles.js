@@ -74,9 +74,7 @@
                                 canvas.style.width = '100%';
                                 canvas.style.height = '100%';
                                 canvas.style.pointerEvents = 'none';
-                                // place the particle canvas above layout containers
-                                // but below any textual elements we elevate
-                                canvas.style.zIndex = '104';
+                                canvas.style.zIndex = '106';
 								canvas.style.opacity = '0.6';
 
                                 document.body.prepend( canvas );
