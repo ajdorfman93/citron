@@ -2898,7 +2898,8 @@ img.u-pull-left {
     text-transform      : uppercase;
     letter-spacing      : .35em;
     color               : white;
-    transition-property : color, background-color;
+    transition-property : color;
+    cursor: none;
 }
 
 .mobile-home-link a:focus,
@@ -3792,6 +3793,7 @@ canvas#neuro {
 
 .modal-popup__desc {
     padding : 0 var(--vspace-1_25) var(--vspace-0_25);
+    cursor: default;
 }
 
 .modal-popup__cat {

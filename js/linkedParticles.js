@@ -60,7 +60,7 @@
 				// renderer
 
                                 renderer = new THREE.WebGPURenderer( { antialias: true, alpha: true } );
-                                renderer.setClearColor( 0x000000, 0 );
+                                renderer.setClearColor( 0x242526, 1 );
                                 renderer.setPixelRatio( window.devicePixelRatio );
                                 renderer.setSize( window.innerWidth, window.innerHeight );
                                 renderer.setAnimationLoop( animate );
@@ -74,7 +74,7 @@
                                 canvas.style.width = '100%';
                                 canvas.style.height = '100%';
                                 canvas.style.pointerEvents = 'none';
-                                canvas.style.zIndex = '-1';
+                                canvas.style.zIndex = '-2';
 
                                 document.body.prepend( canvas );
 
