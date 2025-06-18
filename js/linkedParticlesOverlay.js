@@ -77,6 +77,7 @@
                                 canvas.style.pointerEvents = 'none';
                                 canvas.style.zIndex = '9999';
                                 canvas.style.background = 'transparent';
+								
 
                                 document.body.prepend( canvas );
 

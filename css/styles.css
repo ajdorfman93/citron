@@ -250,32 +250,38 @@ main {
 h1 {
     font-size : 2em;
     margin    : 0.67em 0;
+    z-index      : 100;
 }
 
 hr {
     box-sizing : content-box;
     height     : 0;
     overflow   : visible;
+    z-index      : 100;
 }
 
 pre {
     font-family : monospace, monospace;
     font-size   : 1em;
+    z-index      : 100;
 }
 
 a {
     background-color : transparent;
+    z-index      : 100;
 }
 
 abbr[title] {
     border-bottom   : none;
     text-decoration : underline;
     text-decoration : underline dotted;
+    z-index      : 100;
 }
 
 b,
 strong {
     font-weight : bolder;
+    z-index      : 100;
 }
 
 code,
@@ -283,10 +289,12 @@ kbd,
 samp {
     font-family : monospace, monospace;
     font-size   : 1em;
+    z-index      : 100;
 }
 
 small {
     font-size : 80%;
+    z-index      : 100;
 }
 
 sub,
@@ -295,18 +303,22 @@ sup {
     line-height    : 0;
     position       : relative;
     vertical-align : baseline;
+    z-index      : 100;
 }
 
 sub {
     bottom : -0.25em;
+    z-index      : 100;
 }
 
 sup {
     top : -0.5em;
+    z-index      : 100;
 }
 
 img {
     border-style : none;
+    z-index      : 100;
 }
 
 button,
@@ -318,16 +330,19 @@ textarea {
     font-size   : 100%;
     line-height : 1.15;
     margin      : 0;
+    z-index      : 100;
 }
 
 button,
 input {
     overflow : visible;
+    z-index      : 100;
 }
 
 button,
 select {
     text-transform : none;
+    z-index      : 100;
 }
 
 button,
@@ -363,14 +378,17 @@ legend {
     max-width   : 100%;
     padding     : 0;
     white-space : normal;
+    z-index      : 100;
 }
 
 progress {
     vertical-align : baseline;
+    z-index      : 100;
 }
 
 textarea {
     overflow : auto;
+    z-index      : 100;
 }
 
 [type="checkbox"],
@@ -448,10 +466,12 @@ body {
 p {
     font-size      : inherit;
     text-rendering : optimizeLegibility;
+    z-index      : 100;
 }
 
 a {
     text-decoration : none;
+    z-index      : 100;
 }
 
 svg,
@@ -459,10 +479,12 @@ img,
 video {
     max-width : 100%;
     height    : auto;
+    z-index      : 100;
 }
 
 pre {
     overflow : auto;
+    z-index      : 100;
 }
 
 div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, th, td {
@@ -573,6 +595,14 @@ textarea {
     display : block;
     flex    : 1 1 0%;
     padding : 0 var(--gutter);
+    z-index: 102;
+}
+
+.columnNeuro {
+    display : block;
+    flex    : 1 1 0%;
+    padding : 0 var(--gutter);
+    z-index: 0;
 }
 
 .collapse>.column,
@@ -1402,6 +1432,7 @@ figure img,
 p img {
     margin         : 0;
     vertical-align : bottom;
+    z-index      : 100;
 }
 
 figure {
@@ -1593,6 +1624,7 @@ ul {
 
 li {
     display : list-item;
+    z-index: 106;
 }
 
 ol,
@@ -2615,6 +2647,7 @@ img.u-pull-left {
     margin-left    : .2rem;
     margin-bottom  : var(--vspace-0_5);
     position       : relative;
+    z-index      : 100;
 }
 
 .text-pretitle.with-line {
@@ -2870,7 +2903,7 @@ img.u-pull-left {
 
 .s-header {
     --box-shadow : 0 1px 1px rgba(0, 0, 0, 0.06), 0 2px 2px rgba(0, 0, 0, 0.06), 0 4px 4px rgba(0, 0, 0, 0.06), 0 8px 8px rgba(0, 0, 0, 0.06);
-    z-index      : 100;
+    z-index      : 104;
     width        : 100%;
     position     : fixed;
     top          : 0;
@@ -2900,6 +2933,7 @@ img.u-pull-left {
     color               : white;
     transition-property : color;
     cursor: none;
+    z-index: 105;
 }
 
 .mobile-home-link a:focus,
@@ -2907,6 +2941,7 @@ img.u-pull-left {
 .main-nav a:focus,
 .main-nav a:hover {
     color : var(--color-1);
+    z-index: 105;
 }
 
 .mobile-home-link {
@@ -2925,10 +2960,12 @@ img.u-pull-left {
 
 .main-nav a {
     padding : 0 2rem 0 2.4rem;
+    z-index: 105;
 }
 
 .main-nav .current a {
     background-color : var(--color-gray-9);
+    z-index: 106;
 }
 
 .main-nav ul {
@@ -2941,16 +2978,19 @@ img.u-pull-left {
     border-width     : 1px;
     border-color     : var(--color-border);
     border-style     : none solid solid solid;
+    z-index: 106;
 }
 
 .main-nav li {
     flex         : 1 1 0%;
     padding-left : 0;
     border-right : 1px solid var(--color-border);
+    z-index: 106;
 }
 
 .main-nav li:last-child {
     border-right : none;
+    z-index: 106;
 }
 
 /* --------------------------------------------------------------------
@@ -2963,6 +3003,7 @@ img.u-pull-left {
     position : absolute;
     top      : 0;
     right    : .8rem;
+    z-index: 105;
 }
 
 .mobile-menu-toggle span {
