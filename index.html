@@ -434,6 +434,20 @@
     <script src="js/main.js"></script>
     <script src="js/console-fallback.js"></script>
 
+    <!-- Import map for three.js modules -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "./build/three.webgpu.js",
+                "three/webgpu": "./build/three.webgpu.js",
+                "three/tsl": "./build/three.tsl.js",
+                "three/addons/": "./jsm/"
+            }
+        }
+    </script>
+
+    <script type="module" src="js/linkedParticles.js"></script>
+
     <!-- WebGL canvas driver (loads external GLSL) -->
     <script type="module" src="js/neuroCanvas.js"></script>
 </body>
