@@ -60,7 +60,7 @@
 				// renderer
 
                                 renderer = new THREE.WebGPURenderer( { antialias: true } );
-                                renderer.setClearColor( 0x141516 );
+                                renderer.setClearColor( 0x242526 );
                                 renderer.setPixelRatio( window.devicePixelRatio );
                                 renderer.setSize( window.innerWidth, window.innerHeight );
                                 renderer.setAnimationLoop( animate );
@@ -79,7 +79,7 @@
                                 document.body.prepend( canvas );
 
                                // TSL function
-                               // return a constant white color for all particles
+                               // return a constant gold color for all particles
                                getInstanceColor = /*#__PURE__*/ Fn( () => {
 
                                        return color( 0xeabe7c );
