@@ -53,6 +53,24 @@
           "modalId": "modal-03",
           "modalTitle": "OC Dispensary Android and iOS App"
         }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "thumbnailImage": "/images/portfolio/g-sheetorganizer@0.5x.jpg",
+          "altText": "g-sheetorganizer",
+          "category": "Web App Utility",
+          "projectTitle": "Sheet Organizer",
+          "projectLink": "https://ho-quoting-build.vercel.app/",
+          "modalImage": "/images/portfolio/gallery/g-sheetorganizer.jpg", 
+          "modalDescription": "This app delivers a reusable interactive grid that web teams can drop into custom sites or run as a standalone web app to mirror Airtable-style workspaces.",
+          "modalCategories": [
+            "L",
+            "Application"
+          ],
+          "modalId": "modal-04",
+          "modalTitle": "Sheet Organizer Web App"
+        }
       }
     ]
   }
