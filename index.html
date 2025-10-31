@@ -18,20 +18,64 @@
     ================================================== -->
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        (function () {
+            if (window.__citronDisableAnimations === true) {
+                document.documentElement.classList.add('no-webgpu');
+                document.addEventListener('DOMContentLoaded', function () {
+                    if (document.body && document.body.classList.contains('no-webgpu') === false) {
+                        document.body.classList.add('no-webgpu');
+                    }
+                });
+                return;
+            }
+
+            if (!('gpu' in navigator)) {
+                window.__citronDisableAnimations = true;
+                document.documentElement.classList.add('no-webgpu');
+                document.addEventListener('DOMContentLoaded', function () {
+                    if (document.body && document.body.classList.contains('no-webgpu') === false) {
+                        document.body.classList.add('no-webgpu');
+                    }
+                    window.dispatchEvent(new CustomEvent('citron:webgpu-disabled', { detail: 'navigator.gpu not available' }));
+                });
+            }
+        })();
+    </script>
+
     <script src="js/portfolio.js"></script>
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYTYTR5NYB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-HYTYTR5NYB');
+    </script>
+
+    <!-- Event snippet for Contact conversion page 
+    In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-17693560858/OkVyCPyBsLcbEJqg-fRB',
+          'value': 1.0,
+          'currency': 'USD',
+          'event_callback': callback
+      });
+      return false;
+    }
+    </script>
+
 </head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYTYTR5NYB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HYTYTR5NYB');
-</script>
 
 <body id="top">
 
@@ -370,9 +414,9 @@
                     <div class="column lg-3 md-5 tab-12 stack-on-550 contact-block">
                         <h3 class="text-pretitle">Reach us at</h3>
                         <p class="contact-links">
-                            <a href="mailto:info@citron.one" class="mailtoui"><i class="fa-solid fa-envelope"></i> info@citron.one</a> <br>
-                            <a href="tel:+13472213898"><i class="fa-solid fa-phone"></i> +1 347-221-3898</a> <br>
-                            <a href="https://wa.me/13472213898"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+                            <a href="mailto:info@citron.one" class="mailtoui" onclick="return gtag_report_conversion('mailto:info@citron.one');"><i class="fa-solid fa-envelope"></i> info@citron.one</a> <br>
+                            <a href="tel:+13472213898" onclick="return gtag_report_conversion('tel:+13472213898');"><i class="fa-solid fa-phone"></i> +1 347-221-3898</a> <br>
+                            <a href="https://wa.me/13472213898" onclick="return gtag_report_conversion('https://wa.me/13472213898');"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
                         </p>
                     </div>
                     <div class="column lg-5 md-5 tab-12 stack-on-550 contact-block">
@@ -401,7 +445,7 @@
                         </ul>
                     </div>
                     <div class="column lg-3 md-12 contact-block">
-                        <a href="mailto:info@citron.one" class="mailtoui btn btn--medium u-fullwidth contact-btn">Say Hello.</a>
+                        <a href="mailto:info@citron.one" class="mailtoui btn btn--medium u-fullwidth contact-btn" onclick="return gtag_report_conversion('mailto:info@citron.one');">Say Hello.</a>
                     </div>
                 </div> <!-- end contact-bottom -->
 

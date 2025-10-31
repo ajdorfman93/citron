@@ -247,6 +247,45 @@ body {
     user-select: none;
 }
 
+body.no-webgpu {
+    cursor: auto;
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+}
+
+body.no-webgpu *,
+body.no-webgpu *::before,
+body.no-webgpu *::after {
+    animation: none !important;
+    transition: none !important;
+    cursor: inherit !important;
+}
+
+body.no-webgpu a,
+body.no-webgpu button,
+body.no-webgpu [role="button"],
+body.no-webgpu [type="button"],
+body.no-webgpu [type="submit"] {
+    cursor: pointer !important;
+}
+
+body.no-webgpu canvas#neuro {
+    display: none;
+}
+
+body.no-webgpu .canvas-wrapper {
+    background: radial-gradient(circle at 30% 30%, rgba(234, 190, 124, 0.2), rgba(13, 13, 13, 0.8));
+}
+
+body.no-webgpu .canvas-border-wrapper::before,
+body.no-webgpu .canvas-border-wrapper::after,
+body.no-webgpu .canvas-wrapper::before,
+body.no-webgpu .canvas-wrapper::after {
+    animation: none !important;
+}
+
 main {
     display : block;
 }

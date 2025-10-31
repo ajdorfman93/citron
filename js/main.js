@@ -6,58 +6,209 @@
 
     /* Animations
      * -------------------------------------------------- */
-    const tl = anime.timeline({
-        easing: 'easeInOutCubic',
-        duration: 800,
-        autoplay: false
-    })
-    .add({
-        targets: '#loader',
-        opacity: 0,
-        duration: 1000,
-        begin: function(anim) {
-            window.scrollTo(0, 0);
-        }
-    })
-    .add({
-        targets: '#preloader',
-        opacity: 0,
-        complete: function(anim) {
-            document.querySelector("#preloader").style.visibility = "hidden";
-            document.querySelector("#preloader").style.display = "none";
-        }
-    })
-    .add({
-        targets: '.s-header',
-        translateY: [-100, 0],
-        opacity: [0, 1]
-    }, '-=200')
-    .add({
-        targets: [ '.s-intro .text-pretitle', '.s-intro .text-huge-title'],
-        translateX: [100, 0],
-        opacity: [0, 1],
-        delay: anime.stagger(400)
-    })
-    .add({
-        targets: '.circles span',
-        keyframes: [
-            {opacity: [0, .3]},
-            {opacity: [.3, .1], delay: anime.stagger(100, {direction: 'reverse'})}
-        ],
-        delay: anime.stagger(100, {direction: 'reverse'})
-    })
-    .add({
-        targets: '.intro-social li',
-        translateX: [-50, 0],
-        opacity: [0, 1],
-        delay: anime.stagger(100, {direction: 'reverse'})
-    })
-    .add({
-        targets: '.intro-scrolldown',
-        translateY: [100, 0],
-        opacity: [0, 1]
-    }, '-=800');
+    const isMotionDisabled = () => window.__citronDisableAnimations === true;
 
+    let tl = null;
+
+
+
+    const applyMotionDisabledState = function () {
+
+        window.__citronDisableAnimations = true;
+
+
+
+        if ( html.classList.contains('no-webgpu') === false ) {
+
+            html.classList.add('no-webgpu');
+
+        }
+
+
+
+        const body = document.body;
+
+
+
+        if ( body && body.classList.contains('no-webgpu') === false ) {
+
+            body.classList.add('no-webgpu');
+
+        }
+
+
+
+        const preloader = document.querySelector('#preloader');
+
+
+
+        if ( preloader ) {
+
+            preloader.style.visibility = 'hidden';
+
+            preloader.style.display = 'none';
+
+            preloader.style.opacity = 0;
+
+        }
+
+
+
+        const loader = document.querySelector('#loader');
+
+
+
+        if ( loader ) {
+
+            loader.style.opacity = 0;
+
+            loader.style.visibility = 'hidden';
+
+        }
+
+
+
+        if ( tl && typeof tl.pause === 'function' ) {
+
+            tl.pause();
+
+            tl = null;
+
+        }
+
+    };
+
+
+
+    if ( isMotionDisabled() ) {
+
+
+
+        applyMotionDisabledState();
+
+
+
+    } else {
+
+
+
+        tl = anime.timeline({
+
+            easing: 'easeInOutCubic',
+
+            duration: 800,
+
+            autoplay: false
+
+        })
+
+        .add({
+
+            targets: '#loader',
+
+            opacity: 0,
+
+            duration: 1000,
+
+            begin: function(anim) {
+
+                window.scrollTo(0, 0);
+
+            }
+
+        })
+
+        .add({
+
+            targets: '#preloader',
+
+            opacity: 0,
+
+            complete: function(anim) {
+
+                document.querySelector("#preloader").style.visibility = "hidden";
+
+                document.querySelector("#preloader").style.display = "none";
+
+            }
+
+        })
+
+        .add({
+
+            targets: '.s-header',
+
+            translateY: [-100, 0],
+
+            opacity: [0, 1]
+
+        }, '-=200')
+
+        .add({
+
+            targets: [ '.s-intro .text-pretitle', '.s-intro .text-huge-title'],
+
+            translateX: [100, 0],
+
+            opacity: [0, 1],
+
+            delay: anime.stagger(400)
+
+        })
+
+        .add({
+
+            targets: '.circles span',
+
+            keyframes: [
+
+                {opacity: [0, .3]},
+
+                {opacity: [.3, .1], delay: anime.stagger(100, {direction: 'reverse'})}
+
+            ],
+
+            delay: anime.stagger(100, {direction: 'reverse'})
+
+        })
+
+        .add({
+
+            targets: '.intro-social li',
+
+            translateX: [-50, 0],
+
+            opacity: [0, 1],
+
+            delay: anime.stagger(100, {direction: 'reverse'})
+
+        })
+
+        .add({
+
+            targets: '.intro-scrolldown',
+
+            translateY: [100, 0],
+
+            opacity: [0, 1]
+
+        }, '-=800');
+
+
+
+    }
+
+
+
+    window.addEventListener( 'citron:webgpu-disabled', function () {
+
+
+
+        applyMotionDisabledState();
+
+
+
+    }, { once: true } );
 
     /* Preloader
      * -------------------------------------------------- */
@@ -74,9 +225,18 @@
                 item.classList.remove('ss-animated');
             });
 
-            tl.play();
+            if ( isMotionDisabled() ) {
+                applyMotionDisabledState();
+                return;
+            }
+
+            if ( tl ) {
+                tl.play();
+            }
         });
     };
+
+
 
 
     /* Mobile Menu
@@ -126,6 +286,10 @@
 
         // Add an event listener listening for scroll
         window.addEventListener("scroll", navHighlight);
+        window.addEventListener('citron:webgpu-disabled', function () {
+            window.removeEventListener("scroll", navHighlight);
+        }, { once: true });
+        navHighlight();
 
         function navHighlight() {
         
@@ -154,9 +318,37 @@
 
         const blocks = document.querySelectorAll("[data-animate-block]");
 
+        const markAnimated = function() {
+            blocks.forEach(function(current) {
+                current.classList.add("ss-animated");
+                current.querySelectorAll("[data-animate-el]").forEach(function(target) {
+                    target.style.opacity = 1;
+                    target.style.transform = 'none';
+                });
+            });
+        };
+
+        const handleDisable = function() {
+            markAnimated();
+            window.removeEventListener("scroll", viewportAnimation);
+        };
+
+        if ( isMotionDisabled() ) {
+            handleDisable();
+            return;
+        }
+
+        window.addEventListener('citron:webgpu-disabled', handleDisable, { once: true });
         window.addEventListener("scroll", viewportAnimation);
+        viewportAnimation();
 
         function viewportAnimation() {
+
+            if ( isMotionDisabled() ) {
+                window.removeEventListener("scroll", viewportAnimation);
+                markAnimated();
+                return;
+            }
 
             let scrollY = window.pageYOffset;
 
@@ -166,6 +358,7 @@
                 const triggerTop = (current.offsetTop + (viewportHeight * .2)) - viewportHeight;
                 const blockHeight = current.offsetHeight;
                 const blockSpace = triggerTop + blockHeight;
+
                 const inView = scrollY > triggerTop && scrollY <= blockSpace;
                 const isAnimated = current.classList.contains("ss-animated");
 
@@ -185,6 +378,8 @@
             });
         }
     };
+
+
 
 
     /* Swiper

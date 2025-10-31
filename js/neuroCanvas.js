@@ -1,6 +1,14 @@
 // neuroCanvas.js  – replaces the old <script id="rendered-js">
 (async () => {
 
+  if (window.__citronDisableAnimations === true) {
+    const canvas = document.querySelector("canvas#neuro");
+    if (canvas) {
+      canvas.classList.add("is-disabled");
+    }
+    return;
+  }
+
   /** Convenience loader for external GLSL files */
   async function loadText(url) {
     const res = await fetch(url);

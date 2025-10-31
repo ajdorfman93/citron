@@ -37,17 +37,55 @@
 
                        const autoRotateSpeed = 0;
 
-			init();
+			init().catch( handleNoWebGPU );
 
-			function init() {
+			async function init() {
 
 				if ( WebGPU.isAvailable() === false ) {
 
-					document.body.appendChild( WebGPU.getErrorMessage() );
+					handleNoWebGPU( 'WebGPU.isAvailable() returned false' );
 
-					throw new Error( 'No WebGPU support' );
+					return;
 
 				}
+
+				if ( navigator?.gpu?.requestAdapter ) {
+
+					try {
+
+						const adapter = await navigator.gpu.requestAdapter();
+
+						if ( adapter === null ) {
+
+							handleNoWebGPU( 'No available adapters' );
+
+							return;
+
+						}
+
+					} catch ( error ) {
+
+						handleNoWebGPU( error );
+
+						return;
+
+					}
+
+				}
+
+				try {
+
+					setupScene();
+
+				} catch ( error ) {
+
+					handleNoWebGPU( error );
+
+				}
+
+			}
+
+			function setupScene() {
 
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 200 );
 				camera.position.set( 0, 0, 10 );
@@ -329,6 +367,42 @@
 
                                window.addEventListener( 'pointermove', onPointerMove );
 
+
+			
+			}
+
+
+			function handleNoWebGPU( reason ) {
+
+				const message = reason instanceof Error ? reason.message : ( reason || 'WebGPU unavailable' );
+				const alreadyDisabled = window.__citronDisableAnimations === true;
+
+				window.__citronDisableAnimations = true;
+
+				const root = document.documentElement;
+
+				if ( root && root.classList.contains( 'no-webgpu' ) === false ) {
+
+					root.classList.add( 'no-webgpu' );
+
+				}
+
+				const body = document.body;
+
+				if ( body && body.classList.contains( 'no-webgpu' ) === false ) {
+
+					body.classList.add( 'no-webgpu' );
+					body.style.cursor = 'auto';
+
+				}
+
+				if ( alreadyDisabled === false ) {
+
+					window.dispatchEvent( new CustomEvent( 'citron:webgpu-disabled', { detail: message } ) );
+
+				}
+
+				console.warn( 'WebGPU effects disabled:', message );
 
 			}
 
