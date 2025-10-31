@@ -354,12 +354,6 @@ pre[class*="language-"] {
     display : none;
 }
 
-:root {
-    /*
-    --swiper-pagination-color: var(--swiper-theme-color);
-    */
-}
-
 .swiper-pagination {
     position   : absolute;
     text-align : center;
@@ -541,6 +535,7 @@ button.swiper-pagination-bullet {
 .swiper-scrollbar {
     border-radius    : 10px;
     position         : relative;
+    touch-action     : none;
     -ms-touch-action : none;
     background       : rgba(0, 0, 0, 0.1);
 }
@@ -603,12 +598,6 @@ button.swiper-pagination-bullet {
 }
 
 /* Preloader */
-
-:root {
-    /*
-    --swiper-preloader-color: var(--swiper-theme-color);
-    */
-}
 
 .swiper-lazy-preloader {
     width            : 42px;

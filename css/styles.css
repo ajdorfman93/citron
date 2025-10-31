@@ -235,6 +235,7 @@
 
 html {
     line-height              : 1.15;
+    text-size-adjust         : 100%;
     -webkit-text-size-adjust : 100%;
 }
 
@@ -392,6 +393,7 @@ button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
+    appearance         : button;
     -webkit-appearance : button;
 }
 
@@ -446,15 +448,18 @@ textarea {
 }
 
 [type="search"] {
+    appearance         : textfield;
     -webkit-appearance : textfield;
     outline-offset     : -2px;
 }
 
 [type="search"]::-webkit-search-decoration {
+    appearance         : none;
     -webkit-appearance : none;
 }
 
 ::-webkit-file-upload-button {
+    appearance         : button;
     -webkit-appearance : button;
     font               : inherit;
 }
@@ -500,6 +505,7 @@ body {
 body {
     background-color            : var(--color-body);
     -webkit-overflow-scrolling  : touch;
+    text-size-adjust            : 100%;
     -webkit-text-size-adjust    : 100%;
     -webkit-tap-highlight-color : rgba(0, 0, 0, 0);
     -webkit-font-smoothing      : antialiased;
@@ -566,8 +572,16 @@ textarea {
  .socials-container{
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+  .socials-item{
+    list-style: none;
   }
   .socials-container a{
+    --accent-color: var(--color-1);
     background-color: white;
     padding: 1em;
     border-radius: 50%;
@@ -578,6 +592,7 @@ textarea {
     display: grid;
     place-items: center;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
   }
   .socials-container a svg{
     height: 18px;
@@ -618,6 +633,21 @@ textarea {
   .socials-container a:hover::after{
     transform: translateY(-42px) rotate(0);
     opacity: 1;
+  }
+  .socials-container a[data-social="Twitter"]{
+    --accent-color: #000000;
+  }
+  .socials-container a[data-social="YouTube"]{
+    --accent-color: red;
+  }
+  .socials-container a[data-social="Instagram"]{
+    --accent-color: #fe107c;
+  }
+  .socials-container a[data-social="TikTok"]{
+    --accent-color: #38142a;
+  }
+  .socials-container a[data-social="LinkedIn"]{
+    --accent-color: #0a66c2;
   }
 /* row 
  */
@@ -4192,21 +4222,13 @@ canvas#neuro {
 }
 
 .contact-social {
-    list-style  : none;
-    margin-left : 0;
-}
-
-.contact-social li {
-    display      : inline-block;
+    list-style   : none;
+    margin-left  : 0;
     padding-left : 0;
 }
 
-.contact-social li::after {
-    content : ",  ";
-}
-
-.contact-social li:last-child::after {
-    display : none;
+.contact-social li {
+    padding-left : 0;
 }
 
 .contact-btn {
